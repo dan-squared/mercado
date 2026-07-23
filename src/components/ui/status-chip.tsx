@@ -12,28 +12,40 @@ export const StatusChip: React.FC<StatusChipProps> = ({ status, className = '' }
   const getStyle = () => {
     switch (status) {
       case 'Live':
-        return 'bg-[#dde6fb] text-[#3d63d1] dark:bg-[#1e293b] dark:text-[#60a5fa]';
+        return { bg: 'var(--pill-accent-bg)', text: 'var(--pill-accent-text)', border: '1px solid rgba(47,95,224,0.15)' };
       case 'In Progress':
-        return 'bg-[#f1e3fb] text-[#9146c8] dark:bg-[#2e1065] dark:text-[#c084fc]';
       case 'Under Review':
-        return 'bg-[#fef3c7] text-[#b45309] dark:bg-[#451a03] dark:text-[#fbbf24]';
+        return { bg: '#fff', text: 'var(--text-dark)', border: '1px solid var(--border)' };
       case 'Completed':
-        return 'bg-[#dcf5e0] text-[#2f9e4a] dark:bg-[#064e3b] dark:text-[#34d399]';
+        return { bg: 'var(--pill-strong-bg)', text: 'var(--pill-strong-text)', border: '1px solid var(--pill-strong-bg)' };
       case 'Rejected':
-        return 'bg-[#fee2e2] text-[#dc2626] dark:bg-[#450a0a] dark:text-[#f87171]';
       case 'Paused':
-        return 'bg-[#ffedd5] text-[#c2410c] dark:bg-[#431407] dark:text-[#fb923c]';
-      case 'Draft':
       case 'Cancelled':
+      case 'Draft':
       default:
-        return 'bg-[#f3f3f2] text-[#71717a] dark:bg-[#27272a] dark:text-[#a1a1aa]';
+        return { bg: 'var(--pill-default-bg)', text: 'var(--pill-default-text)', border: '1px solid var(--pill-outline)' };
     }
   };
 
+  const style = getStyle();
+
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold tracking-tight transition-transform duration-150 hover:scale-105 ${getStyle()} ${className}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] uppercase tracking-wider font-bold transition-transform duration-150 hover:scale-105 ${className}`}
+      style={{
+        background: style.bg,
+        color: style.text,
+        border: style.border,
+      }}
     >
+      {status === 'Completed' && (
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" style={{ marginRight: 4 }}>
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      )}
+      {status === 'Live' && (
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'currentColor', marginRight: 5, opacity: 0.8 }} />
+      )}
       {status}
     </span>
   );

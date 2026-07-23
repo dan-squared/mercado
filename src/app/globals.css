@@ -20,17 +20,20 @@
   --blue-faint: #dde6fb;
   --blue-text:  #3d63d1;
 
-  /* ── Status Pill Tokens ─────────────────────────────────── */
-  --pill-green-bg:    #dcf5e0;
-  --pill-green-text:  #2f9e4a;
-  --pill-purple-bg:   #f1e3fb;
-  --pill-purple-text: #9146c8;
-  --pill-blue-bg:     #dde6fb;
-  --pill-blue-text:   #3d63d1;
-  --pill-amber-bg:    #fef3c7;
-  --pill-amber-text:  #b45309;
-  --pill-red-bg:      #fee2e2;
-  --pill-red-text:    #dc2626;
+  /* ── Status Pill Tokens (Minimalist Monochrome) ──────────── */
+  --pill-default-bg:  #f4f4f4;
+  --pill-default-text:#4b4f57;
+  --pill-accent-bg:   rgba(47,95,224,0.06);
+  --pill-accent-text: #2f5fe0;
+  --pill-strong-bg:   #16181d;
+  --pill-strong-text: #ffffff;
+  --pill-outline:     #ececec;
+
+  /* ── Radius System (inner = outer - padding) ────────────── */
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
 
   /* Aliases kept for legacy code compat */
   --bg:            var(--page-bg);

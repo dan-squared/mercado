@@ -20,6 +20,7 @@ interface AppShellProps {
 export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [profileOpen, setProfileOpen] = useState(false);
   const pathname = usePathname();
   const router = RouterHook();
 
@@ -294,51 +295,109 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
             gap: 2,
           }}
         >
-          {/* Role Switcher (demo only) */}
-          <div
-            style={{
-              padding: '8px 12px',
-              borderRadius: 9,
-              fontSize: 12,
-              fontWeight: 600,
-              color: '#b5b8be',
-              marginBottom: 4,
-            }}
-          >
-            DEMO ROLE
-          </div>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr',
-              gap: 4,
-              background: '#f0f0ee',
-              padding: 4,
-              borderRadius: 10,
-              marginBottom: 8,
-            }}
-          >
-            {(['business', 'creator', 'admin'] as Role[]).map((r) => (
-              <button
-                key={r}
-                onClick={() => handleRoleSwitch(r)}
+          {/* Floating Profile Dropdown matching ChatGPT design */}
+          <div style={{ position: 'relative' }}>
+            {profileOpen && (
+              <>
+                <div
+                  style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+                  onClick={() => setProfileOpen(false)}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 'calc(100% + 8px)',
+                    left: 0,
+                    width: '100%',
+                    background: '#fff',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: 8,
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
+                    border: '1px solid var(--border)',
+                    zIndex: 50,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    animation: 'slideUp var(--dur-fast) var(--ease-out)',
+                  }}
+                >
+                  <div style={{ padding: '6px 12px 10px', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Switch Demo Role
+                  </div>
+                  {(['business', 'creator', 'admin'] as Role[]).map((r) => (
+                    <button
+                      key={r}
+                      onClick={() => { handleRoleSwitch(r); setProfileOpen(false); }}
+                      style={{
+                        padding: '10px 12px',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        borderRadius: 'var(--radius-sm)', // nested radius: 16 - 8 = 8px
+                        border: 'none',
+                        cursor: 'pointer',
+                        background: 'transparent',
+                        color: role === r ? 'var(--text-dark)' : 'var(--text-mid)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        transition: 'background-color var(--dur-fast) var(--ease)',
+                      }}
+                      className="nav-item-link"
+                    >
+                      <span style={{ textTransform: 'capitalize' }}>{r}</span>
+                      {role === r && <HugeIcon name="check" size={14} />}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            
+            <button
+              onClick={() => setProfileOpen(!profileOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '9px 12px',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 13.5,
+                fontWeight: 600,
+                color: 'var(--text-dark)',
+                background: profileOpen ? '#f4f4f4' : 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                width: '100%',
+                textAlign: 'left',
+                transition: 'background-color var(--dur-fast) var(--ease)',
+              }}
+              className="hover-bg-gray"
+            >
+              <div
                 style={{
-                  padding: '4px 0',
-                  fontSize: 11,
+                  width: 24,
+                  height: 24,
+                  borderRadius: '50%',
+                  background: '#f4f4f4',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-dark)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 10,
                   fontWeight: 700,
-                  borderRadius: 7,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: role === r ? '#fff' : 'transparent',
-                  color: role === r ? 'var(--blue)' : '#9a9ea6',
-                  boxShadow: role === r ? 'var(--shadow-xs)' : 'none',
-                  transition: 'background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease)',
-                  textTransform: 'capitalize',
+                  flexShrink: 0,
                 }}
               >
-                {r}
-              </button>
-            ))}
+                {role === 'business' ? 'SF' : role === 'creator' ? 'ST' : 'AD'}
+              </div>
+              <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {userLabel}
+              </span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7abb2" strokeWidth="2.5" strokeLinecap="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
           </div>
 
           <button
@@ -515,19 +574,21 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
               }}
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
-                <polyline points="6 9 12 15 18 9" />
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </span>
           </Link>
 
-          {/* Avatar */}
+          {/* Avatar (Top right) - now minimalist monochrome */}
           <div
             style={{
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #2f5fe0 0%, #7c3aed 100%)',
-              color: '#fff',
+              background: '#f4f4f4',
+              border: '1px solid var(--border)',
+              color: 'var(--text-dark)',
               fontWeight: 700,
               fontSize: 13,
               display: 'flex',
@@ -535,7 +596,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
               justifyContent: 'center',
               flexShrink: 0,
               cursor: 'pointer',
-              transition: 'transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease)',
+              transition: 'transform var(--dur-base) var(--ease-out)',
               title: userLabel,
             } as React.CSSProperties}
             className="hover-scale"
@@ -556,6 +617,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
           background: #f2f2f1 !important;
         }
         .nav-item-link:active { transform: scale(0.98); }
+        .hover-bg-gray:hover { background: #f4f4f4 !important; }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
     </div>
   );

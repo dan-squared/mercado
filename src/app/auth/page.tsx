@@ -49,8 +49,8 @@ export default function AuthPage() {
             style={{
               width: 52,
               height: 52,
-              borderRadius: 14,
-              background: 'var(--blue)',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--text-dark)', // Monochrome logo
               color: '#fff',
               fontFamily: 'var(--font-fraunces)',
               fontSize: 28,
@@ -59,7 +59,7 @@ export default function AuthPage() {
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto',
-              boxShadow: '0 8px 20px -6px rgba(47,95,224,0.4)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             M
@@ -83,17 +83,16 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Auth Card */}
         <div
           style={{
             background: '#fff',
-            borderRadius: 20,
+            borderRadius: 'var(--radius-xl)',
             border: '1px solid var(--border)',
             boxShadow: 'var(--shadow-md)',
-            padding: '28px 24px',
+            padding: '32px', // Increased padding
             display: 'flex',
             flexDirection: 'column',
-            gap: 24,
+            gap: 28, // Increased gap
           }}
         >
           {/* Segmented Role Switcher */}
@@ -114,8 +113,8 @@ export default function AuthPage() {
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 padding: 4,
-                borderRadius: 12,
-                background: '#f0f0ee',
+                borderRadius: 'var(--radius-md)',
+                background: '#f4f4f4',
                 border: '1px solid var(--border)',
               }}
             >
@@ -128,11 +127,11 @@ export default function AuthPage() {
                     padding: '9px 0',
                     fontSize: 13,
                     fontWeight: 700,
-                    borderRadius: 9,
+                    borderRadius: 'var(--radius-sm)', // inner = outer(12) - padding(4) = 8
                     border: 'none',
                     cursor: 'pointer',
                     background: role === r ? '#fff' : 'transparent',
-                    color: role === r ? 'var(--blue)' : 'var(--text-muted)',
+                    color: role === r ? 'var(--text-dark)' : 'var(--text-muted)',
                     boxShadow: role === r ? 'var(--shadow-xs)' : 'none',
                     transition: 'background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease)',
                     textTransform: 'capitalize',
@@ -161,7 +160,7 @@ export default function AuthPage() {
                 style={{
                   display: 'flex',
                   alignItems: 'stretch',
-                  borderRadius: 12,
+                  borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border)',
                   background: '#f9f9f8',
                   overflow: 'hidden',
@@ -172,7 +171,7 @@ export default function AuthPage() {
                 <div
                   style={{
                     padding: '12px 14px',
-                    background: '#f3f3f2',
+                    background: '#f4f4f4',
                     borderRight: '1px solid var(--border)',
                     fontSize: 13.5,
                     fontWeight: 600,
@@ -209,15 +208,15 @@ export default function AuthPage() {
               disabled={isSubmitting || phone.length < 9}
               style={{
                 width: '100%',
-                padding: '13px',
-                borderRadius: 12,
-                background: (isSubmitting || phone.length < 9) ? '#a0a4ab' : 'var(--blue)',
-                color: '#fff',
+                padding: '14px',
+                borderRadius: 'var(--radius-md)',
+                background: (isSubmitting || phone.length < 9) ? '#e5e7eb' : 'var(--text-dark)', // Monochrome
+                color: (isSubmitting || phone.length < 9) ? '#a1a1aa' : '#fff',
                 fontSize: 13.5,
                 fontWeight: 700,
                 border: 'none',
                 cursor: (isSubmitting || phone.length < 9) ? 'not-allowed' : 'pointer',
-                boxShadow: (isSubmitting || phone.length < 9) ? 'none' : '0 2px 4px rgba(47,95,224,0.1), 0 8px 16px -6px rgba(47,95,224,0.4)',
+                boxShadow: (isSubmitting || phone.length < 9) ? 'none' : 'var(--shadow-sm)',
                 transition: 'background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease)',
                 display: 'flex',
                 alignItems: 'center',
@@ -246,7 +245,7 @@ export default function AuthPage() {
                 textDecoration: 'none',
                 transition: 'color var(--dur-base) var(--ease)',
               }}
-              onMouseOver={(e) => (e.currentTarget.style.color = 'var(--blue)')}
+              onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-dark)')}
               onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
             >
               Platform Owner / Admin Login →
@@ -256,8 +255,8 @@ export default function AuthPage() {
       </div>
       <style>{`
         .input-group:focus-within {
-          border-color: var(--blue) !important;
-          box-shadow: 0 0 0 3px rgba(47,95,224,0.15);
+          border-color: var(--text-dark) !important;
+          box-shadow: 0 0 0 3px rgba(22, 24, 29, 0.1);
         }
         input::placeholder {
           color: #b5b8be;

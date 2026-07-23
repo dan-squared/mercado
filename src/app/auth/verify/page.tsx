@@ -65,13 +65,12 @@ export default function VerifyOtpPage() {
       >
         {/* Header */}
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div
             style={{
               width: 52,
               height: 52,
-              borderRadius: 14,
-              background: 'rgba(47,95,224,0.1)',
-              color: 'var(--blue)',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--text-dark)', // Monochrome logo
+              color: '#fff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -101,17 +100,16 @@ export default function VerifyOtpPage() {
           </div>
         </div>
 
-        {/* Card */}
         <div
           style={{
             background: '#fff',
-            borderRadius: 20,
+            borderRadius: 'var(--radius-xl)',
             border: '1px solid var(--border)',
             boxShadow: 'var(--shadow-md)',
-            padding: '28px 24px',
+            padding: '32px', // Increased padding
             display: 'flex',
             flexDirection: 'column',
-            gap: 24,
+            gap: 28, // Increased gap
           }}
         >
           <form onSubmit={handleVerify} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -126,12 +124,12 @@ export default function VerifyOtpPage() {
                   value={digit}
                   onChange={(e) => handleOtpChange(idx, e.target.value)}
                   style={{
-                    width: 44,
+                    width: 46,
                     height: 56,
                     textAlign: 'center',
                     fontSize: 20,
                     fontWeight: 700,
-                    borderRadius: 12,
+                    borderRadius: 'var(--radius-md)',
                     background: '#f9f9f8',
                     border: '1px solid var(--border)',
                     color: 'var(--text-dark)',
@@ -150,7 +148,7 @@ export default function VerifyOtpPage() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'var(--blue)',
+                  color: 'var(--text-dark)', // monochrome
                   fontWeight: 700,
                   fontSize: 13,
                   cursor: 'pointer',
@@ -166,15 +164,15 @@ export default function VerifyOtpPage() {
               disabled={isVerifying || otp.join('').length < 6}
               style={{
                 width: '100%',
-                padding: '13px',
-                borderRadius: 12,
-                background: (isVerifying || otp.join('').length < 6) ? '#a0a4ab' : 'var(--blue)',
-                color: '#fff',
+                padding: '14px',
+                borderRadius: 'var(--radius-md)',
+                background: (isVerifying || otp.join('').length < 6) ? '#e5e7eb' : 'var(--text-dark)', // monochrome
+                color: (isVerifying || otp.join('').length < 6) ? '#a1a1aa' : '#fff',
                 fontSize: 13.5,
                 fontWeight: 700,
                 border: 'none',
                 cursor: (isVerifying || otp.join('').length < 6) ? 'not-allowed' : 'pointer',
-                boxShadow: (isVerifying || otp.join('').length < 6) ? 'none' : '0 2px 4px rgba(47,95,224,0.1), 0 8px 16px -6px rgba(47,95,224,0.4)',
+                boxShadow: (isVerifying || otp.join('').length < 6) ? 'none' : 'var(--shadow-sm)',
                 transition: 'background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease)',
                 display: 'flex',
                 alignItems: 'center',
@@ -195,8 +193,8 @@ export default function VerifyOtpPage() {
       </div>
       <style>{`
         .otp-input:focus {
-          border-color: var(--blue) !important;
-          box-shadow: 0 0 0 3px rgba(47,95,224,0.15);
+          border-color: var(--text-dark) !important;
+          box-shadow: 0 0 0 3px rgba(22, 24, 29, 0.1);
         }
       `}</style>
     </div>
