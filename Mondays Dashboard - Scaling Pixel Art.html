@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mondays Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --page-bg:#f7f7f5;
+    --card-bg:#ffffff;
+    --border:#ececec;
+    --text-dark:#16181d;
+    --text-mid:#4b4f57;
+    --text-muted:#9a9ea6;
+    --blue:#2f5fe0;
+    --blue-dark:#2650c4;
+    --pink:#eaa6f0;
+    --green:#a3f2b0;
+    --pill-green-bg:#dcf5e0;
+    --pill-green-text:#2f9e4a;
+    --pill-purple-bg:#f1e3fb;
+    --pill-purple-text:#9146c8;
+    --pill-blue-bg:#dde6fb;
+    --pill-blue-text:#3d63d1;
+
+    /* motion tokens */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --dur-fast: 120ms;
+    --dur-base: 180ms;
+    --dur-slow: 260ms;
+
+    /* elevation */
+    --shadow-xs: 0 1px 1px rgba(16,17,20,0.02), 0 1px 2px rgba(16,17,20,0.03);
+    --shadow-sm: 0 2px 4px rgba(16,17,20,0.03), 0 8px 20px -6px rgba(16,17,20,0.06);
+    --shadow-md: 0 10px 30px -10px rgba(16,17,20,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{ scrollbar-gutter: stable; }
+  body{
+    margin:0;
+    background:var(--page-bg);
+    font-family:'Inter',sans-serif;
+    color:var(--text-dark);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{ background:#c9d9ff; color:#0c1c4d; }
+
+  a, button, [role="button"], .clickable{ cursor:pointer; }
+  button{ font:inherit; }
+
+  :focus-visible{
+    outline:2px solid #4f7bf0;
+    outline-offset:2px;
+    border-radius:6px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+  }
+  .app{
+    display:flex;
+    max-width:1280px;
+    margin:0 auto;
+    min-height:100vh;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:192px;
+    flex-shrink:0;
+    padding:32px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+  .logo{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:-0.02em;
+    color:var(--text-dark);
+    margin-bottom:34px;
+  }
+  .nav{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:13.5px;
+    font-weight:500;
+    color:#767a82;
+    cursor:pointer;
+    transition: color var(--dur-base) var(--ease), background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .nav-item i{
+    width:15px;
+    font-size:14px;
+    text-align:center;
+    color:#a7abb2;
+    transition: color var(--dur-base) var(--ease);
+  }
+  .nav-item.active{
+    background:var(--blue);
+    color:#fff;
+    box-shadow: 0 4px 10px -3px rgba(47,95,224,0.45);
+  }
+  .nav-item.active i{ color:#fff; }
+  .nav-item:hover:not(.active){ color:var(--text-dark); background:#f2f2f1; }
+  .nav-item:hover:not(.active) i{ color:#767a82; }
+  .nav-item:active{ transform: scale(0.98); }
+  @media (hover:hover) and (pointer:fine){
+    .nav-item{ will-change:transform; }
+  }
+
+  .projects-section{ margin-top:34px; }
+  .projects-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:12.5px;
+    font-weight:600;
+    color:#b5b8be;
+    padding:0 12px;
+    margin-bottom:10px;
+  }
+  .projects-head i{
+    font-size:11px; color:#b5b8be; cursor:pointer;
+    width:20px; height:20px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    transition: background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .projects-head i:hover{ background:#f2f2f1; color:#767a82; }
+  .projects-head i:active{ transform:scale(0.9); }
+  .project-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 12px;
+    border-radius:9px;
+    font-size:13.5px;
+    font-weight:500;
+    color:#4b4f57;
+    transition: background-color var(--dur-base) var(--ease);
+  }
+  .project-row:hover{ background:#f2f2f1; }
+  .dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .dot.pink{ background:var(--pink); }
+  .dot.green{ background:var(--green); }
+
+  .sidebar-bottom{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .sidebar-bottom .nav-item{ color:#b5b8be; }
+  .sidebar-bottom .nav-item i{ color:#c7cad0; }
+  .help-badge{
+    margin-left:auto;
+    background:#dcf5e0;
+    color:#2f9e4a;
+    font-size:11px;
+    font-weight:700;
+    border-radius:6px;
+    padding:1px 7px;
+  }
+
+  /* ---------- MAIN ---------- */
+  .main{
+    flex:1;
+    padding:32px 32px 32px 8px;
+    min-width:0;
+  }
+
+  /* topbar */
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .search{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:11px 14px;
+    color:#9a9ea6;
+    font-size:13.5px;
+    transition: border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+  }
+  .search:hover{ border-color:#dcdde0; }
+  .search:focus-within{
+    border-color:#9db3f0;
+    box-shadow: 0 0 0 4px rgba(47,95,224,0.10);
+  }
+  .search i.fa-magnifying-glass{ color:#c2c5cb; font-size:13px; transition: color var(--dur-base) var(--ease); }
+  .search:focus-within i.fa-magnifying-glass{ color:#6b88e0; }
+  .search-kbd{
+    margin-left:auto;
+    background:#f4f4f4;
+    border-radius:6px;
+    padding:2px 7px;
+    font-size:11.5px;
+    font-weight:600;
+    color:#a7abb2;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .btn-new-project{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:11px 18px;
+    font-size:13.5px;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+    cursor:pointer;
+    white-space:nowrap;
+    box-shadow: 0 1px 2px rgba(47,95,224,0.15), 0 6px 16px -6px rgba(47,95,224,0.45);
+    transition: background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease);
+  }
+  .btn-new-project:hover{ background:var(--blue-dark); }
+  .btn-new-project:active{ transform:scale(0.97); box-shadow:0 1px 2px rgba(47,95,224,0.15); }
+  .btn-new-project .chev-divider{
+    border-left:1px solid rgba(255,255,255,.35);
+    padding-left:12px;
+    margin-left:2px;
+    display:flex;
+    align-items:center;
+  }
+  .icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    color:#7a7e85;
+    flex-shrink:0;
+    cursor:pointer;
+    transition: background-color var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .icon-btn:hover{ background:#f7f7f6; border-color:#dcdde0; }
+  .icon-btn:active{ transform:scale(0.94); }
+  .icon-btn .dot-badge{
+    position:absolute;
+    top:8px; right:9px;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:#e05fd1;
+    box-shadow:0 0 0 2px #fff;
+  }
+  .avatar{
+    width:40px; height:40px;
+    border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease);
+  }
+  .avatar:hover{ transform:scale(1.05); box-shadow:0 0 0 3px #eef1fb; }
+
+  /* greeting */
+  .date-line{
+    font-size:13.5px;
+    color:#9a9ea6;
+    margin-bottom:4px;
+  }
+  .greeting-row{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom:22px;
+  }
+  .greeting{
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-0.025em;
+    line-height:1.15;
+    color:var(--text-dark);
+  }
+  .greeting-actions{ display:flex; gap:10px; }
+  .pill-btn{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:9px 15px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-dark);
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    transition: background-color var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease);
+  }
+  .pill-btn:hover{ background:#f7f7f6; border-color:#dcdde0; }
+  .pill-btn:active{ transform:scale(0.97); }
+  .pill-btn.primary{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:#fff;
+    box-shadow: 0 1px 2px rgba(47,95,224,0.15), 0 6px 16px -6px rgba(47,95,224,0.45);
+  }
+  .pill-btn.primary:hover{ background:var(--blue-dark); border-color:var(--blue-dark); }
+  .pill-btn i{ font-size:12px; }
+
+  /* stats */
+  .stats-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px 22px;
+    display:flex;
+    align-items:center;
+    gap:36px;
+    margin-bottom:22px;
+    box-shadow: var(--shadow-xs);
+  }
+  .stat{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:13.5px;
+    color:#7a7e85;
+  }
+  .stat i{ font-size:15px; color:#3a3d43; transition: transform var(--dur-slow) var(--ease-out); }
+  .stat:hover i{ transform: scale(1.12); }
+  .stat b{ color:var(--text-dark); font-weight:700; }
+  .stat-divider{ width:1px; height:20px; background:var(--border); }
+
+  /* card generic */
+  .card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px 22px;
+    box-shadow: var(--shadow-xs);
+  }
+  .card-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .card-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--text-dark);
+  }
+  .card-title i{ color:#9a9ea6; font-size:15px; }
+  .head-right{ display:flex; align-items:center; gap:10px; }
+  .chip-select{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#f6f6f5;
+    border-radius:9px;
+    padding:6px 11px;
+    font-size:12.5px;
+    font-weight:600;
+    color:#4b4f57;
+    transition: background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .chip-select:hover{ background:#eeeeec; }
+  .chip-select:active{ transform:scale(0.97); }
+  .chip-select i{ transition: transform var(--dur-base) var(--ease-out); }
+  .see-all{
+    font-size:12.5px;
+    font-weight:600;
+    color:#4b4f57;
+    background:#f6f6f5;
+    padding:7px 13px;
+    border-radius:9px;
+    transition: background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .see-all:hover{ background:#eeeeec; }
+  .see-all:active{ transform:scale(0.97); }
+
+  /* projects table */
+  .projects-card{ margin-bottom:20px; }
+  table.tasks{ width:100%; border-collapse:collapse; }
+  table.tasks thead th{
+    text-align:left;
+    font-size:12px;
+    font-weight:600;
+    color:#9a9ea6;
+    padding:10px 8px;
+    border-bottom:1px solid var(--border);
+  }
+  table.tasks thead th.col-name{ display:flex; align-items:center; gap:7px; }
+  table.tasks tbody tr{ transition: background-color var(--dur-base) var(--ease); }
+  table.tasks tbody tr:hover{ background:#fbfbfa; }
+  table.tasks tbody td{
+    padding:14px 8px;
+    border-bottom:1px solid #f2f2f1;
+    font-size:13.5px;
+    vertical-align:middle;
+  }
+  table.tasks tbody tr:last-child td{ border-bottom:none; }
+  table.tasks tbody tr:first-child td{ padding-top:16px; }
+  .task-name{ display:flex; align-items:center; gap:10px; font-weight:600; color:var(--text-dark); }
+  .task-name-icon{
+    width:26px;height:26px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    background:#f3f3f2; color:#7a7e85; font-size:12px; flex-shrink:0;
+    transition: background-color var(--dur-base) var(--ease), transform var(--dur-base) var(--ease-out);
+  }
+  table.tasks tbody tr:hover .task-name-icon{ background:#ebebe9; transform:scale(1.05); }
+  .meta{ display:flex; align-items:center; gap:14px; margin-left:36px; color:#b5b8be; font-size:12px; }
+  .meta span{ display:flex; align-items:center; gap:4px; }
+  .assign{ display:flex; align-items:center; gap:9px; font-weight:600; color:var(--text-dark); }
+  .assign img{ width:26px;height:26px;border-radius:50%; object-fit:cover; transition: box-shadow var(--dur-base) var(--ease); }
+  table.tasks tbody tr:hover .assign img{ box-shadow:0 0 0 2px #eef1fb; }
+  .status-pill{
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  table.tasks tbody tr:hover .status-pill{ transform:scale(1.04); }
+  .status-pill.progress{ background:var(--pill-green-bg); color:var(--pill-green-text); }
+  .status-pill.pending{ background:var(--pill-purple-bg); color:var(--pill-purple-text); }
+  .status-pill.completed{ background:var(--pill-blue-bg); color:var(--pill-blue-text); }
+
+  /* bottom row */
+  .bottom-row{ display:flex; gap:20px; align-items:flex-start; }
+  .schedule-card{ flex:1.05; min-width:0; }
+  .notes-card{ flex:1; min-width:0; }
+
+  .days-row{ display:flex; justify-content:space-between; margin-bottom:16px; }
+  .day{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    font-size:11px; font-weight:600; color:#b5b8be;
+    padding:6px 10px; border-radius:10px;
+    transition: background-color var(--dur-slow) var(--ease-out), color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .day .num{ font-size:13.5px; color:var(--text-dark); font-weight:700; transition: color var(--dur-base) var(--ease); }
+  .day:hover:not(.active){ background:#f7f7f6; }
+  .day:active{ transform:scale(0.94); }
+  .day.active{ background:var(--pink); color:#fff; box-shadow: 0 4px 10px -3px rgba(234,166,240,0.55); }
+  .day.active .num{ color:#fff; }
+
+  .event{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 10px;
+    margin:0 -10px;
+    border-radius:12px;
+    border-top:1px solid #f2f2f1;
+    transition: background-color var(--dur-base) var(--ease);
+  }
+  .event:first-of-type{ border-top:none; }
+  .event:hover{ background:#fbfbfa; }
+  .event-bar{ width:3px; align-self:stretch; border-radius:3px; flex-shrink:0; }
+  .event-bar.green{ background:#7fe38f; }
+  .event-bar.blue{ background:#5f8bf0; }
+  .event-bar.pink{ background:var(--pink); }
+  .event-icon{ font-size:12px; color:#9a9ea6; width:14px; text-align:center; flex-shrink:0; }
+  .event-info{ flex:1; min-width:0; }
+  .event-title{ font-size:13.5px; font-weight:700; color:var(--text-dark); margin-bottom:3px; }
+  .event-time{ font-size:12px; color:#b5b8be; }
+  .event-avatars{ display:flex; align-items:center; }
+  .event-avatars img{
+    width:26px;height:26px;border-radius:50%;
+    border:2px solid #fff;
+    object-fit:cover;
+    margin-left:-8px;
+    transition: transform var(--dur-base) var(--ease-out), margin var(--dur-base) var(--ease-out);
+  }
+  .event-avatars img:first-child{ margin-left:0; }
+  .event:hover .event-avatars img{ transform:translateY(-1px); }
+  .event:hover .event-avatars img:hover{ transform:scale(1.12) translateY(-1px); z-index:2; position:relative; }
+  .event-dots{
+    color:#c2c5cb; font-size:14px; padding:0 2px 0 10px;
+    width:26px; height:26px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    transition: background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+  }
+  .event-dots:hover{ background:#f0f0ee; color:#7a7e85; }
+
+  .note{
+    display:flex; gap:12px;
+    padding:14px 10px;
+    margin:0 -10px;
+    border-radius:12px;
+    border-top:1px solid #f2f2f1;
+    transition: background-color var(--dur-base) var(--ease);
+  }
+  .note:first-of-type{ border-top:none; }
+  .note:hover{ background:#fbfbfa; }
+  .note-check{
+    width:19px;height:19px;border-radius:50%;
+    border:2px solid #dcdde0;
+    flex-shrink:0; margin-top:2px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition: border-color var(--dur-base) var(--ease), background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out);
+  }
+  .note-check:hover{ border-color:#c96be0; transform:scale(1.08); }
+  .note-check:active{ transform:scale(0.9); }
+  .note-check.checked{
+    background:#c96be0;
+    border-color:#c96be0;
+    color:#fff; font-size:10px;
+    animation: check-pop var(--dur-slow) var(--ease-out);
+  }
+  @keyframes check-pop{
+    0%{ transform:scale(0.6); opacity:0.4; }
+    60%{ transform:scale(1.08); opacity:1; }
+    100%{ transform:scale(1); }
+  }
+  .note-title{ font-size:13.5px; font-weight:700; color:var(--text-dark); margin-bottom:4px; transition: color var(--dur-base) var(--ease); }
+  .note.done .note-title{ text-decoration:line-through; color:#b5b8be; }
+  .note-desc{ font-size:12.5px; color:#b5b8be; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">Mondays</div>
+    <nav class="nav">
+      <div class="nav-item"><i class="fa-solid fa-table-cells-large"></i>Dashboard</div>
+      <div class="nav-item"><i class="fa-regular fa-file-lines"></i>Projects</div>
+      <div class="nav-item active"><i class="fa-regular fa-rectangle-list"></i>My Task</div>
+      <div class="nav-item"><i class="fa-regular fa-comments"></i>Chats</div>
+      <div class="nav-item"><i class="fa-regular fa-file"></i>Documents</div>
+      <div class="nav-item"><i class="fa-solid fa-receipt"></i>Receipts</div>
+    </nav>
+
+    <div class="projects-section">
+      <div class="projects-head">PROJECTS <i class="fa-solid fa-plus"></i></div>
+      <div class="project-row"><span class="dot pink"></span>Event Planning</div>
+      <div class="project-row"><span class="dot green"></span>Breakfast Plan</div>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="nav-item"><i class="fa-solid fa-gear"></i>Settings</div>
+      <div class="nav-item"><i class="fa-regular fa-circle-question"></i>Help &amp; Support <span class="help-badge">8</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Search or type a command
+        <span class="search-kbd">⌘ F</span>
+      </div>
+      <button class="btn-new-project">
+        <i class="fa-solid fa-plus"></i> New Project
+        <span class="chev-divider"><i class="fa-solid fa-chevron-down" style="font-size:11px"></i></span>
+      </button>
+      <div class="icon-btn"><i class="fa-regular fa-bell"></i><span class="dot-badge"></span></div>
+      <img class="avatar" src="https://i.pravatar.cc/80?img=13" alt="">
+    </div>
+
+    <div class="date-line">Thursday, 20th February</div>
+    <div class="greeting-row">
+      <div class="greeting">Good Evening! John,</div>
+      <div class="greeting-actions">
+        <button class="pill-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+        <button class="pill-btn primary"><i class="fa-solid fa-plus"></i> Add Task</button>
+      </div>
+    </div>
+
+    <div class="stats-card">
+      <div class="stat"><i class="fa-regular fa-clock"></i><b>12hrs</b>&nbsp;Time Saved</div>
+      <div class="stat-divider"></div>
+      <div class="stat"><i class="fa-solid fa-circle-check"></i><b>24</b>&nbsp;Projects Completed</div>
+      <div class="stat-divider"></div>
+      <div class="stat"><i class="fa-solid fa-layer-group"></i><b>7</b>&nbsp;Projects In-progress</div>
+    </div>
+
+    <div class="card projects-card">
+      <div class="card-head">
+        <div class="card-title"><i class="fa-solid fa-list-ul"></i>My Projects</div>
+        <div class="head-right">
+          <div class="chip-select">This Week <i class="fa-solid fa-chevron-down" style="font-size:10px;color:#b5b8be"></i></div>
+        </div>
+        <div class="see-all">See All</div>
+      </div>
+
+      <table class="tasks">
+        <thead>
+          <tr>
+            <th class="col-name" style="padding-left:8px"><i class="fa-solid fa-pen" style="font-size:11px;color:#c2c5cb"></i>Task Name</th>
+            <th><i class="fa-regular fa-user" style="margin-right:6px;color:#c2c5cb"></i>Assign</th>
+            <th><i class="fa-solid fa-arrows-rotate" style="margin-right:6px;color:#c2c5cb;font-size:11px"></i>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="task-name"><span class="task-name-icon"><i class="fa-solid fa-users"></i></span>Help DStudio get more customers</div>
+              <div class="meta"><span><i class="fa-regular fa-comment"></i>7</span><span><i class="fa-solid fa-paperclip"></i>2</span></div>
+            </td>
+            <td><div class="assign"><img src="https://i.pravatar.cc/80?img=33">Phoenix Winters</div></td>
+            <td><span class="status-pill progress">In Progress</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="task-name"><span class="task-name-icon"><i class="fa-solid fa-paper-plane"></i></span>Plan a trip</div>
+              <div class="meta"><span><i class="fa-regular fa-comment"></i>10</span><span><i class="fa-solid fa-paperclip"></i>3</span></div>
+            </td>
+            <td><div class="assign"><img src="https://i.pravatar.cc/80?img=51">Cohen Merritt</div></td>
+            <td><span class="status-pill pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="task-name"><span class="task-name-icon"><i class="fa-solid fa-box"></i></span>Return a package</div>
+              <div class="meta"><span><i class="fa-regular fa-comment"></i>5</span><span><i class="fa-solid fa-paperclip"></i>8</span></div>
+            </td>
+            <td><div class="assign"><img src="https://i.pravatar.cc/80?img=14">Lukas Juarez</div></td>
+            <td><span class="status-pill completed">Completed</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bottom-row">
+      <div class="card schedule-card">
+        <div class="card-head">
+          <div class="card-title"><i class="fa-regular fa-calendar"></i>Schedule</div>
+          <div class="event-dots" style="padding:0"><i class="fa-solid fa-ellipsis"></i></div>
+        </div>
+        <div class="days-row">
+          <div class="day"><span>Mo</span><span class="num">15</span></div>
+          <div class="day"><span>Tu</span><span class="num">16</span></div>
+          <div class="day active"><span>We</span><span class="num">17</span></div>
+          <div class="day"><span>Th</span><span class="num">18</span></div>
+          <div class="day"><span>Fr</span><span class="num">19</span></div>
+          <div class="day"><span>Sa</span><span class="num">20</span></div>
+          <div class="day"><span>Su</span><span class="num">14</span></div>
+        </div>
+
+        <div class="event">
+          <div class="event-bar green"></div>
+          <i class="fa-solid fa-video event-icon"></i>
+          <div class="event-info">
+            <div class="event-title">Kickoff Meeting</div>
+            <div class="event-time">01:00 PM to 02:30 PM</div>
+          </div>
+          <div class="event-avatars">
+            <img src="https://i.pravatar.cc/80?img=12">
+            <img src="https://i.pravatar.cc/80?img=47">
+          </div>
+          <div class="event-dots"><i class="fa-solid fa-ellipsis"></i></div>
+        </div>
+
+        <div class="event">
+          <div class="event-bar blue"></div>
+          <i class="fa-brands fa-wordpress event-icon"></i>
+          <div class="event-info">
+            <div class="event-title">Create Wordpress website for event Registration</div>
+            <div class="event-time">04:00 PM to 02:30 PM</div>
+          </div>
+          <div class="event-avatars">
+            <img src="https://i.pravatar.cc/80?img=25">
+            <img src="https://i.pravatar.cc/80?img=60">
+          </div>
+          <div class="event-dots"><i class="fa-solid fa-ellipsis"></i></div>
+        </div>
+
+        <div class="event">
+          <div class="event-bar pink"></div>
+          <i class="fa-solid fa-diagram-project event-icon"></i>
+          <div class="event-info">
+            <div class="event-title">Create User flow for hotel booking</div>
+            <div class="event-time">05:00 PM to 02:30 PM</div>
+          </div>
+          <div class="event-avatars">
+            <img src="https://i.pravatar.cc/80?img=32">
+            <img src="https://i.pravatar.cc/80?img=45">
+          </div>
+          <div class="event-dots"><i class="fa-solid fa-ellipsis"></i></div>
+        </div>
+      </div>
+
+      <div class="card notes-card">
+        <div class="card-head">
+          <div class="card-title"><i class="fa-regular fa-file-lines"></i>Notes</div>
+        </div>
+
+        <div class="note">
+          <div class="note-check"></div>
+          <div>
+            <div class="note-title">Landing Page For Website</div>
+            <div class="note-desc">To get started on a landing page, could you provide a bit more detail about its purpose?</div>
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="note-check"></div>
+          <div>
+            <div class="note-title">Fixing icons with dark backgrounds</div>
+            <div class="note-desc">Use icons that are easily recognizable and straightforward. Avoid overly complex designs that might confuse users</div>
+          </div>
+        </div>
+
+        <div class="note done">
+          <div class="note-check checked"><i class="fa-solid fa-check"></i></div>
+          <div>
+            <div class="note-title">Discussion regarding userflow improvement</div>
+            <div class="note-desc">What's the main goal of the landing page? (e.g., lead generation, product)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Day tabs: respond instantly on press, only one active at a time
+  document.querySelectorAll('.day').forEach(day => {
+    day.addEventListener('click', () => {
+      document.querySelector('.day.active')?.classList.remove('active');
+      day.classList.add('active');
+    });
+  });
+
+  // Note checkboxes: toggle done state, feedback lands on the click itself
+  document.querySelectorAll('.note-check').forEach(check => {
+    check.addEventListener('click', () => {
+      const note = check.closest('.note');
+      const nowChecked = !check.classList.contains('checked');
+      check.classList.toggle('checked', nowChecked);
+      note.classList.toggle('done', nowChecked);
+      check.innerHTML = nowChecked ? '<i class="fa-solid fa-check"></i>' : '';
+    });
+  });
+</script>
+</body>
+</html>

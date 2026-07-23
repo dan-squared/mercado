@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:wght@600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  /* ── Page & Surface ────────────────────────────────────── */
+  --page-bg:    #f7f7f5;   /* Mondays exact warm off-white */
+  --card-bg:    #ffffff;
+  --border:     #ececec;
+  --border-mid: #dcdde0;
+
+  /* ── Text ───────────────────────────────────────────────── */
+  --text-dark:    #16181d;
+  --text-mid:     #4b4f57;
+  --text-muted:   #9a9ea6;
+  --text-faint:   #b5b8be;
+
+  /* ── Brand ──────────────────────────────────────────────── */
+  --blue:       #2f5fe0;
+  --blue-dark:  #2650c4;
+  --blue-faint: #dde6fb;
+  --blue-text:  #3d63d1;
+
+  /* ── Status Pill Tokens ─────────────────────────────────── */
+  --pill-green-bg:    #dcf5e0;
+  --pill-green-text:  #2f9e4a;
+  --pill-purple-bg:   #f1e3fb;
+  --pill-purple-text: #9146c8;
+  --pill-blue-bg:     #dde6fb;
+  --pill-blue-text:   #3d63d1;
+  --pill-amber-bg:    #fef3c7;
+  --pill-amber-text:  #b45309;
+  --pill-red-bg:      #fee2e2;
+  --pill-red-text:    #dc2626;
+
+  /* Aliases kept for legacy code compat */
+  --bg:            var(--page-bg);
+  --bg-secondary:  #f0f0ee;
+  --surface:       var(--card-bg);
+  --surface-hover: #fbfbfa;
+  --text-primary:   var(--text-dark);
+  --text-secondary: var(--text-mid);
+  --text-placeholder: var(--text-faint);
+
+  /* ── Motion (Emil Kowalski + Mondays) ───────────────────── */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast:    120ms;
+  --dur-base:    180ms;
+  --dur-slow:    260ms;
+
+  /* ── Elevation ──────────────────────────────────────────── */
+  --shadow-xs: 0 1px 1px rgba(16,17,20,0.02), 0 1px 2px rgba(16,17,20,0.03);
+  --shadow-sm: 0 2px 4px rgba(16,17,20,0.03), 0 8px 20px -6px rgba(16,17,20,0.06);
+  --shadow-md: 0 10px 30px -10px rgba(16,17,20,0.14);
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02","cv03","cv04","cv11";
+}
+
+::selection {
+  background: #c9d9ff;
+  color: #0c1c4d;
+}
+
+a, button, [role="button"], .clickable { cursor: pointer; }
+button { font: inherit; }
+
+:focus-visible {
+  outline: 2px solid #4f7bf0;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Global interactive press feedback (Emil Kowalski) ───── */
+.btn-interactive {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+.btn-interactive:active { transform: scale(0.97); }
+
+/* ── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Hover guard (Emil Kowalski) ─────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  .hover-scale:hover { transform: scale(1.05); }
+}
+
+/* ── Drawer backdrop ─────────────────────────────────────── */
+.overlay-backdrop {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+}
