@@ -417,7 +417,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
               textAlign: 'left',
             }}
           >
-            <HugeIcon name="settings" size={16} style={{ color: '#c7cad0' }} />
+            <HugeIcon name="settings" size={16} />
             Settings
           </button>
           <button
@@ -437,7 +437,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children, role }) => {
               textAlign: 'left',
             }}
           >
-            <HugeIcon name="shield" size={16} style={{ color: '#c7cad0' }} />
+            <HugeIcon name="shield" size={16} />
             Help &amp; Support
             <span
               style={{

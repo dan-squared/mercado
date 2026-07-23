@@ -65,6 +65,7 @@ export default function VerifyOtpPage() {
       >
         {/* Header */}
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div
             style={{
               width: 52,
               height: 52,
