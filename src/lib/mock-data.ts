@@ -12,6 +12,7 @@ export type CampaignStatus =
   | 'In Progress' 
   | 'Under Review' 
   | 'Completed' 
+  | 'Pending'
   | 'Rejected' 
   | 'Paused' 
   | 'Cancelled';

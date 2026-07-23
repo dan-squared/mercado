@@ -70,7 +70,7 @@ export const TrustTierBadge: React.FC<TrustTierBadgeProps> = ({
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-tight transition-all duration-150 btn-interactive ${details.bg} ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-tight transition-colors duration-150 duration-150 btn-interactive ${details.bg} ${className}`}
       >
         <span>{details.icon}</span>
         <span>{tier}</span>
@@ -78,39 +78,39 @@ export const TrustTierBadge: React.FC<TrustTierBadgeProps> = ({
 
       {isOpen && (
         <div
-          className="absolute z-50 left-0 mt-2 w-64 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] shadow-xl animate-in fade-in zoom-in-95 duration-150 origin-top-left"
+          className="absolute z-50 left-0 mt-2 w-64 p-4 rounded-xl bg-(--surface) border border-(--border) shadow-xl animate-in fade-in zoom-in-95 duration-150 origin-top-left"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">{details.icon}</span>
             <div>
-              <h4 className="text-sm font-bold text-[var(--text-primary)]">{details.label}</h4>
-              <p className="text-xs text-[var(--text-muted)]">Verified Trust Level</p>
+              <h4 className="text-sm font-bold text-(--text-primary)">{details.label}</h4>
+              <p className="text-xs text-(--text-muted)">Verified Trust Level</p>
             </div>
           </div>
 
-          <div className="space-y-2 text-xs border-t border-b border-[var(--border)] py-2.5 my-2">
+          <div className="space-y-2 text-xs border-t border-b border-(--border) py-2.5 my-2">
             <div className="flex justify-between">
-              <span className="text-[var(--text-muted)]">Completed Campaigns:</span>
-              <span className="font-semibold text-[var(--text-primary)]">
+              <span className="text-(--text-muted)">Completed Campaigns:</span>
+              <span className="font-semibold text-(--text-primary)">
                 {creator?.campaignsCompleted ?? 12}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[var(--text-muted)]">Dispute Rate:</span>
+              <span className="text-(--text-muted)">Dispute Rate:</span>
               <span className="font-semibold text-emerald-600 dark:text-emerald-400">
                 {creator?.disputeRate ?? '0%'}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[var(--text-muted)]">Member Since:</span>
-              <span className="font-semibold text-[var(--text-primary)]">
+              <span className="text-(--text-muted)">Member Since:</span>
+              <span className="font-semibold text-(--text-primary)">
                 {creator?.joinedDate ?? 'Jan 2025'}
               </span>
             </div>
           </div>
 
-          <div className="text-[11px] text-[var(--text-muted)] flex items-center gap-1">
+          <div className="text-[11px] text-(--text-muted) flex items-center gap-1">
             <HugeIcon name="shield" size={14} className="text-blue-500" />
             Escrow protection active for all campaigns
           </div>

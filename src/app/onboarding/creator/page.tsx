@@ -35,29 +35,29 @@ export default function CreatorOnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg)] text-[var(--text-primary)]">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-(--bg) text-(--text-primary)">
       <div className="w-full max-w-lg space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-[var(--blue)] flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-(--blue) flex items-center justify-center mx-auto">
             <HugeIcon name="sparkles" size={24} />
           </div>
           <h1 className="text-2xl font-black tracking-tight">Connect Your Channels</h1>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-(--text-muted)">
             We verify channel ownership & follower stats before granting marketplace access
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xl space-y-6">
+        <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xl space-y-6">
           {/* Add Channel Form */}
           <form onSubmit={handleAddChannel} className="space-y-3">
-            <label className="block text-xs font-semibold text-[var(--text-secondary)]">
+            <label className="block text-xs font-semibold text-(--text-secondary)">
               Add Channel / Social Media Handle
             </label>
             <div className="flex gap-2">
               <select
                 value={platform}
                 onChange={(e) => setPlatform(e.target.value as Platform)}
-                className="px-3 py-2 text-xs font-bold rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] outline-none"
+                className="px-3 py-2 text-xs font-bold rounded-xl bg-(--bg-secondary) border border-(--border) text-(--text-primary) outline-none"
               >
                 <option value="telegram">Telegram</option>
                 <option value="tiktok">TikTok</option>
@@ -70,12 +70,12 @@ export default function CreatorOnboardingPage() {
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
                 placeholder="@handle or URL..."
-                className="flex-1 px-3 py-2 text-xs rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] outline-none focus:border-[var(--blue)]"
+                className="flex-1 px-3 py-2 text-xs rounded-xl bg-(--bg-secondary) border border-(--border) text-(--text-primary) outline-none focus:border-(--blue)"
               />
 
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl bg-[var(--blue)] text-white text-xs font-bold shadow-sm hover:bg-[var(--blue-dark)] transition-all btn-interactive"
+                className="px-4 py-2 rounded-xl bg-(--blue) text-white text-xs font-bold shadow-sm hover:bg-(--blue-dark) transition-colors duration-150 btn-interactive"
               >
                 Add
               </button>
@@ -83,13 +83,13 @@ export default function CreatorOnboardingPage() {
           </form>
 
           {/* Connected Channels List */}
-          <div className="space-y-2 border-t border-[var(--border)] pt-4">
-            <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
+          <div className="space-y-2 border-t border-(--border) pt-4">
+            <label className="block text-xs font-semibold text-(--text-muted) uppercase tracking-wider">
               Submitted Channels ({channels.length})
             </label>
 
             {channels.length === 0 ? (
-              <p className="text-xs text-[var(--text-muted)] py-4 text-center">
+              <p className="text-xs text-(--text-muted) py-4 text-center">
                 No channels added yet. Add at least one channel above.
               </p>
             ) : (
@@ -97,11 +97,11 @@ export default function CreatorOnboardingPage() {
                 {channels.map((ch, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-xs"
+                    className="flex items-center justify-between p-3 rounded-xl bg-(--bg-secondary) border border-(--border) text-xs"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="capitalize font-bold text-[var(--blue)]">{ch.platform}</span>
-                      <span className="font-semibold text-[var(--text-primary)]">{ch.handle}</span>
+                      <span className="capitalize font-bold text-(--blue)">{ch.platform}</span>
+                      <span className="font-semibold text-(--text-primary)">{ch.handle}</span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -110,7 +110,7 @@ export default function CreatorOnboardingPage() {
                       </span>
                       <button
                         onClick={() => handleRemove(idx)}
-                        className="text-[var(--text-muted)] hover:text-red-500"
+                        className="text-(--text-muted) hover:text-red-500"
                       >
                         <HugeIcon name="close" size={14} />
                       </button>
@@ -124,7 +124,7 @@ export default function CreatorOnboardingPage() {
           <button
             onClick={handleSubmitVerification}
             disabled={channels.length === 0}
-            className="w-full py-3 rounded-xl bg-[var(--blue)] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-[var(--blue-dark)] transition-all btn-interactive flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-(--blue) disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-(--blue-dark) transition-colors duration-150 btn-interactive flex items-center justify-center gap-2"
           >
             <span>Submit for Verification</span>
             <HugeIcon name="arrow-right" size={16} />

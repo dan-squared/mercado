@@ -37,17 +37,17 @@ export default function MyCreatorCampaignsPage() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl lg:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+            <h2 className="text-2xl lg:text-3xl font-black text-(--text-primary) tracking-tight">
               My Claimed Campaigns
             </h2>
-            <p className="text-xs text-[var(--text-muted)]">
+            <p className="text-xs text-(--text-muted)">
               Track your active campaign work, submit proof screenshots/links, and view status.
             </p>
           </div>
 
           <Link
             href="/creator/marketplace"
-            className="px-4 py-2 rounded-xl bg-[var(--blue)] text-white text-xs font-bold shadow-md hover:bg-[var(--blue-dark)] transition-all btn-interactive flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-(--blue) text-white text-xs font-bold shadow-md hover:bg-(--blue-dark) transition-colors duration-150 btn-interactive flex items-center gap-1.5"
           >
             <HugeIcon name="plus" size={16} />
             <span>Browse More Campaigns</span>
@@ -59,28 +59,28 @@ export default function MyCreatorCampaignsPage() {
           {campaigns.map((camp) => (
             <div
               key={camp.id}
-              className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4"
+              className="p-5 rounded-2xl bg-(--surface) border border-(--border) shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4"
             >
               <div className="flex items-start gap-4">
                 <img
                   src={camp.businessLogo}
                   alt=""
-                  className="w-12 h-12 rounded-xl object-cover border border-[var(--border)]"
+                  className="w-12 h-12 rounded-xl object-cover border border-(--border)"
                 />
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold text-[var(--text-primary)]">{camp.title}</h3>
+                    <h3 className="text-base font-bold text-(--text-primary)">{camp.title}</h3>
                     <StatusChip status={camp.status} />
                   </div>
 
-                  <p className="text-xs text-[var(--text-muted)]">
+                  <p className="text-xs text-(--text-muted)">
                     {camp.businessName} • Payout Offer:{' '}
-                    <span className="font-bold text-[var(--blue)]">
+                    <span className="font-bold text-(--blue)">
                       ETB {camp.rate.toLocaleString()}
                     </span>
                   </p>
 
-                  <div className="flex items-center gap-3 text-[11px] text-[var(--text-muted)] pt-1">
+                  <div className="flex items-center gap-3 text-[11px] text-(--text-muted) pt-1">
                     <span>📅 Deadline: {camp.deadline}</span>
                     <span>📍 Platforms: {camp.platforms.join(', ')}</span>
                   </div>
@@ -92,7 +92,7 @@ export default function MyCreatorCampaignsPage() {
                 {camp.status === 'In Progress' || camp.status === 'Live' ? (
                   <button
                     onClick={() => setActiveProofCamp(camp)}
-                    className="w-full md:w-auto px-5 py-2.5 rounded-xl bg-[var(--blue)] text-white font-bold text-xs shadow-md hover:bg-[var(--blue-dark)] transition-all btn-interactive flex items-center justify-center gap-2"
+                    className="w-full md:w-auto px-5 py-2.5 rounded-xl bg-(--blue) text-white font-bold text-xs shadow-md hover:bg-(--blue-dark) transition-colors duration-150 btn-interactive flex items-center justify-center gap-2"
                   >
                     <HugeIcon name="upload" size={16} />
                     <span>Submit Proof & Claim Payout</span>
@@ -120,19 +120,19 @@ export default function MyCreatorCampaignsPage() {
             onClick={() => setActiveProofCamp(null)}
           />
 
-          <div className="relative w-full max-w-lg bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl p-6 space-y-5 z-10 animate-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
+          <div className="relative w-full max-w-lg bg-(--surface) border border-(--border) rounded-2xl shadow-2xl p-6 space-y-5 z-10 animate-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-(--border) pb-3">
               <div>
-                <h3 className="text-base font-bold text-[var(--text-primary)]">
+                <h3 className="text-base font-bold text-(--text-primary)">
                   Submit Proof for {activeProofCamp.title}
                 </h3>
-                <p className="text-xs text-[var(--text-muted)]">
+                <p className="text-xs text-(--text-muted)">
                   Expected Payout: ETB {activeProofCamp.rate.toLocaleString()}
                 </p>
               </div>
               <button
                 onClick={() => setActiveProofCamp(null)}
-                className="p-1 rounded-lg text-[var(--text-muted)] hover:bg-[var(--bg-secondary)]"
+                className="p-1 rounded-lg text-(--text-muted) hover:bg-(--bg-secondary)"
               >
                 <HugeIcon name="close" size={18} />
               </button>
@@ -142,14 +142,14 @@ export default function MyCreatorCampaignsPage() {
               <div className="py-8 text-center space-y-2 text-emerald-500 animate-in zoom-in-90 duration-200">
                 <HugeIcon name="check-circle" size={40} className="mx-auto" />
                 <h4 className="text-base font-bold">Proof Submitted Successfully!</h4>
-                <p className="text-xs text-[var(--text-muted)]">
+                <p className="text-xs text-(--text-muted)">
                   Status updated to Under Review. You will be notified once funds are released.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmitProof} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-semibold text-[var(--text-secondary)]">
+                  <label className="block text-xs font-semibold text-(--text-secondary)">
                     Live Content / Post URL *
                   </label>
                   <input
@@ -158,7 +158,7 @@ export default function MyCreatorCampaignsPage() {
                     value={proofUrl}
                     onChange={(e) => setProofUrl(e.target.value)}
                     placeholder="https://t.me/yourchannel/123 or TikTok link..."
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] outline-none focus:border-[var(--blue)] font-semibold"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-(--bg-secondary) border border-(--border) text-(--text-primary) outline-none focus:border-(--blue) font-semibold"
                   />
                 </div>
 
@@ -166,28 +166,28 @@ export default function MyCreatorCampaignsPage() {
                 <UploadZone label="Upload Proof Screenshot (Optional but speeds verification)" />
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-semibold text-[var(--text-secondary)]">
+                  <label className="block text-xs font-semibold text-(--text-secondary)">
                     Submission Notes / Engagement Stats
                   </label>
                   <textarea
                     rows={2}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] outline-none focus:border-[var(--blue)]"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-(--bg-secondary) border border-(--border) text-(--text-primary) outline-none focus:border-(--blue)"
                   />
                 </div>
 
-                <div className="pt-2 flex justify-end gap-3 border-t border-[var(--border)]">
+                <div className="pt-2 flex justify-end gap-3 border-t border-(--border)">
                   <button
                     type="button"
                     onClick={() => setActiveProofCamp(null)}
-                    className="px-4 py-2 text-xs font-bold text-[var(--text-muted)]"
+                    className="px-4 py-2 text-xs font-bold text-(--text-muted)"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-[var(--blue)] text-white text-xs font-bold shadow-md hover:bg-[var(--blue-dark)] transition-all btn-interactive flex items-center gap-1.5"
+                    className="px-6 py-2.5 rounded-xl bg-(--blue) text-white text-xs font-bold shadow-md hover:bg-(--blue-dark) transition-colors duration-150 btn-interactive flex items-center gap-1.5"
                   >
                     <HugeIcon name="check" size={16} />
                     <span>Submit Proof for Verification</span>

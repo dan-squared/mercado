@@ -25,17 +25,17 @@ export default function AdminVerificationQueuePage() {
     <AppShell role="admin">
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl lg:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-2xl lg:text-3xl font-black text-(--text-primary) tracking-tight">
             Verification & Fraud Inspection Queue
           </h2>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-(--text-muted)">
             Review submissions flagged by automated anomaly detection (e.g. view count spikes or shared IP ranges).
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
+        <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xs space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-(--text-muted)">
               Flagged Submissions ({queue.filter((x) => x.status === 'pending').length} Action Required)
             </h3>
           </div>
@@ -43,7 +43,7 @@ export default function AdminVerificationQueuePage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-[var(--border)] text-[var(--text-muted)] font-semibold">
+                <tr className="border-b border-(--border) text-(--text-muted) font-semibold">
                   <th className="py-3 px-3">Creator</th>
                   <th className="py-3 px-3">Campaign</th>
                   <th className="py-3 px-3">Platform</th>
@@ -53,14 +53,14 @@ export default function AdminVerificationQueuePage() {
                   <th className="py-3 px-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)]">
+              <tbody className="divide-y divide-(--border)">
                 {queue.map((sub) => (
                   <tr
                     key={sub.id}
                     onClick={() => setSelectedSub(sub)}
-                    className="hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer group"
+                    className="hover:bg-(--bg-secondary) transition-colors cursor-pointer group"
                   >
-                    <td className="py-3.5 px-3 font-bold text-[var(--text-primary)]">
+                    <td className="py-3.5 px-3 font-bold text-(--text-primary)">
                       <div className="flex items-center gap-2">
                         <img
                           src={sub.creatorAvatar}
@@ -74,11 +74,11 @@ export default function AdminVerificationQueuePage() {
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-3 font-semibold text-[var(--text-primary)]">
+                    <td className="py-3.5 px-3 font-semibold text-(--text-primary)">
                       {sub.campaignTitle}
                     </td>
 
-                    <td className="py-3.5 px-3 uppercase font-bold text-[var(--blue)]">
+                    <td className="py-3.5 px-3 uppercase font-bold text-(--blue)">
                       {sub.platform}
                     </td>
 
@@ -88,7 +88,7 @@ export default function AdminVerificationQueuePage() {
                       </span>
                     </td>
 
-                    <td className="py-3.5 px-3 text-[var(--text-muted)]">{sub.submittedAt}</td>
+                    <td className="py-3.5 px-3 text-(--text-muted)">{sub.submittedAt}</td>
 
                     <td className="py-3.5 px-3">
                       <span
@@ -105,7 +105,7 @@ export default function AdminVerificationQueuePage() {
                     </td>
 
                     <td className="py-3.5 px-3 text-right">
-                      <button className="px-3 py-1 rounded-lg bg-[var(--blue)] text-white text-[11px] font-bold">
+                      <button className="px-3 py-1 rounded-lg bg-(--blue) text-white text-[11px] font-bold">
                         Inspect →
                       </button>
                     </td>
@@ -136,17 +136,17 @@ export default function AdminVerificationQueuePage() {
             {/* Proof Screenshot */}
             {selectedSub.screenshotUrl && (
               <div className="space-y-2">
-                <p className="font-bold text-[var(--text-muted)] uppercase tracking-wider">
+                <p className="font-bold text-(--text-muted) uppercase tracking-wider">
                   Submitted Proof Artifact
                 </p>
-                <div className="rounded-xl overflow-hidden border border-[var(--border)]">
+                <div className="rounded-xl overflow-hidden border border-(--border)">
                   <img src={selectedSub.screenshotUrl} alt="" className="w-full h-48 object-cover" />
                 </div>
                 <a
                   href={selectedSub.proofUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-[var(--blue)] font-bold hover:underline"
+                  className="inline-flex items-center gap-1 text-(--blue) font-bold hover:underline"
                 >
                   <HugeIcon name="link" size={14} /> Open Live URL Spot Check →
                 </a>
@@ -154,16 +154,16 @@ export default function AdminVerificationQueuePage() {
             )}
 
             {/* Override Buttons */}
-            <div className="flex gap-3 pt-4 border-t border-[var(--border)]">
+            <div className="flex gap-3 pt-4 border-t border-(--border)">
               <button
                 onClick={() => handleReject(selectedSub.id)}
-                className="flex-1 py-2.5 rounded-xl bg-red-500/10 text-red-600 font-bold hover:bg-red-500/20 transition-all"
+                className="flex-1 py-2.5 rounded-xl bg-red-500/10 text-red-600 font-bold hover:bg-red-500/20 transition-colors duration-150"
               >
                 Reject & Flag Account
               </button>
               <button
                 onClick={() => handleApprove(selectedSub.id)}
-                className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-all btn-interactive flex items-center justify-center gap-1"
+                className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors duration-150 btn-interactive flex items-center justify-center gap-1"
               >
                 <HugeIcon name="check" size={16} />
                 <span>Override & Release Escrow</span>

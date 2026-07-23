@@ -14,10 +14,10 @@ export default function CreatorWalletPage() {
       <div className="space-y-8 max-w-5xl mx-auto">
         {/* Wallet Header */}
         <div>
-          <h2 className="text-2xl lg:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-2xl lg:text-3xl font-black text-(--text-primary) tracking-tight">
             Creator Earnings & Wallet
           </h2>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-(--text-muted)">
             Weekly automated payouts directly to your local mobile money account.
           </p>
         </div>
@@ -57,25 +57,25 @@ export default function CreatorWalletPage() {
         {/* EARNINGS BREAKDOWN & PAYOUT HISTORY */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Earnings Breakdown */}
-          <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4 lg:col-span-1">
-            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+          <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xs space-y-4 lg:col-span-1">
+            <h3 className="text-sm font-bold text-(--text-primary) flex items-center gap-2">
               <HugeIcon name="coins" size={18} className="text-amber-500" />
               <span>Earnings Breakdown</span>
             </h3>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex justify-between items-center">
+              <div className="p-3 rounded-xl bg-(--bg-secondary) border border-(--border) flex justify-between items-center">
                 <div>
-                  <p className="font-bold text-[var(--text-primary)]">Sheba Foods Launch</p>
-                  <p className="text-[10px] text-[var(--text-muted)]">TikTok Video</p>
+                  <p className="font-bold text-(--text-primary)">Sheba Foods Launch</p>
+                  <p className="text-[10px] text-(--text-muted)">TikTok Video</p>
                 </div>
                 <span className="font-bold text-emerald-600 dark:text-emerald-400">ETB 2,000</span>
               </div>
 
-              <div className="p-3 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex justify-between items-center">
+              <div className="p-3 rounded-xl bg-(--bg-secondary) border border-(--border) flex justify-between items-center">
                 <div>
-                  <p className="font-bold text-[var(--text-primary)]">Kifiya Digital Wallet</p>
-                  <p className="text-[10px] text-[var(--text-muted)]">Telegram Post</p>
+                  <p className="font-bold text-(--text-primary)">Kifiya Digital Wallet</p>
+                  <p className="text-[10px] text-(--text-muted)">Telegram Post</p>
                 </div>
                 <span className="font-bold text-amber-600">ETB 1,200</span>
               </div>
@@ -83,26 +83,26 @@ export default function CreatorWalletPage() {
           </div>
 
           {/* Payout History Table */}
-          <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4 lg:col-span-2">
-            <h3 className="text-sm font-bold text-[var(--text-primary)]">Itemized Payout History</h3>
+          <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xs space-y-4 lg:col-span-2">
+            <h3 className="text-sm font-bold text-(--text-primary)">Itemized Payout History</h3>
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-[var(--border)] text-[var(--text-muted)] font-semibold">
+                  <tr className="border-b border-(--border) text-(--text-muted) font-semibold">
                     <th className="py-2.5 px-3">Date</th>
                     <th className="py-2.5 px-3">Campaign / Source</th>
                     <th className="py-2.5 px-3">Amount (ETB)</th>
                     <th className="py-2.5 px-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[var(--border)]">
+                <tbody className="divide-y divide-(--border)">
                   <tr>
-                    <td className="py-3 px-3 text-[var(--text-muted)]">Jun 28, 2026</td>
-                    <td className="py-3 px-3 font-bold text-[var(--text-primary)]">
+                    <td className="py-3 px-3 text-(--text-muted)">Jun 28, 2026</td>
+                    <td className="py-3 px-3 font-bold text-(--text-primary)">
                       YouTube Series — Ethio Telecom
                     </td>
-                    <td className="py-3 px-3 font-bold text-[var(--blue)]">4,500</td>
+                    <td className="py-3 px-3 font-bold text-(--blue)">4,500</td>
                     <td className="py-3 px-3">
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600">
                         Paid via Telebirr
@@ -111,11 +111,11 @@ export default function CreatorWalletPage() {
                   </tr>
 
                   <tr>
-                    <td className="py-3 px-3 text-[var(--text-muted)]">Jun 21, 2026</td>
-                    <td className="py-3 px-3 font-bold text-[var(--text-primary)]">
+                    <td className="py-3 px-3 text-(--text-muted)">Jun 21, 2026</td>
+                    <td className="py-3 px-3 font-bold text-(--text-primary)">
                       Blog Feature — Mama&apos;s Kitchen
                     </td>
-                    <td className="py-3 px-3 font-bold text-[var(--blue)]">800</td>
+                    <td className="py-3 px-3 font-bold text-(--blue)">800</td>
                     <td className="py-3 px-3">
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600">
                         Paid via Telebirr

@@ -26,10 +26,10 @@ export default function AdminUsersPage() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl lg:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+            <h2 className="text-2xl lg:text-3xl font-black text-(--text-primary) tracking-tight">
               User Directory & Trust Management
             </h2>
-            <p className="text-xs text-[var(--text-muted)]">
+            <p className="text-xs text-(--text-muted)">
               Inspect creator trust tiers, verified social handles, and manage account statuses.
             </p>
           </div>
@@ -39,15 +39,15 @@ export default function AdminUsersPage() {
             placeholder="Search creator name or handle..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 text-xs rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--text-primary)] outline-none focus:border-[var(--blue)] w-full sm:w-64"
+            className="px-4 py-2 text-xs rounded-xl bg-(--surface) border border-(--border) text-(--text-primary) outline-none focus:border-(--blue) w-full sm:w-64"
           />
         </div>
 
-        <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+        <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-[var(--border)] text-[var(--text-muted)] font-semibold">
+                <tr className="border-b border-(--border) text-(--text-muted) font-semibold">
                   <th className="py-3 px-3">Creator / Handle</th>
                   <th className="py-3 px-3">Trust Tier (Click for Stats)</th>
                   <th className="py-3 px-3">Verified Channels</th>
@@ -56,15 +56,15 @@ export default function AdminUsersPage() {
                   <th className="py-3 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)]">
+              <tbody className="divide-y divide-(--border)">
                 {filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-[var(--bg-secondary)] transition-colors">
-                    <td className="py-3.5 px-3 font-bold text-[var(--text-primary)]">
+                  <tr key={u.id} className="hover:bg-(--bg-secondary) transition-colors">
+                    <td className="py-3.5 px-3 font-bold text-(--text-primary)">
                       <div className="flex items-center gap-2.5">
                         <img src={u.avatar} alt="" className="w-8 h-8 rounded-full object-cover" />
                         <div>
                           <p>{u.name}</p>
-                          <p className="text-[10px] text-[var(--text-muted)] font-normal">{u.handle}</p>
+                          <p className="text-[10px] text-(--text-muted) font-normal">{u.handle}</p>
                         </div>
                       </div>
                     </td>
@@ -78,7 +78,7 @@ export default function AdminUsersPage() {
                         {u.channels.map((ch, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-0.5 rounded text-[10px] bg-[var(--bg-secondary)] text-[var(--blue)] font-bold border border-[var(--border)]"
+                            className="px-2 py-0.5 rounded text-[10px] bg-(--bg-secondary) text-(--blue) font-bold border border-(--border)"
                           >
                             {ch.platform}: {(ch.followers / 1000).toFixed(0)}k
                           </span>
@@ -97,7 +97,7 @@ export default function AdminUsersPage() {
                     <td className="py-3.5 px-3 text-right">
                       <button
                         onClick={() => handlePromoteTier(u.id)}
-                        className="px-3 py-1 rounded-lg bg-[var(--blue-light)] text-[var(--blue)] font-bold text-[10px] hover:bg-[var(--blue)] hover:text-white transition-all"
+                        className="px-3 py-1 rounded-lg bg-(--blue-light) text-(--blue) font-bold text-[10px] hover:bg-(--blue) hover:text-white transition-colors duration-150"
                       >
                         Promote to Elite ⭐
                       </button>

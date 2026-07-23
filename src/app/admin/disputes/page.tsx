@@ -54,19 +54,19 @@ export default function AdminDisputesPage() {
     <AppShell role="admin">
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl lg:text-3xl font-black text-[var(--text-primary)] tracking-tight">
+          <h2 className="text-2xl lg:text-3xl font-black text-(--text-primary) tracking-tight">
             Escrow Dispute Arbitration
           </h2>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-(--text-muted)">
             Review reported campaign disputes, inspect timestamp audit logs, and enforce escrow releases.
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+        <div className="p-6 rounded-2xl bg-(--surface) border border-(--border) shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-[var(--border)] text-[var(--text-muted)] font-semibold">
+                <tr className="border-b border-(--border) text-(--text-muted) font-semibold">
                   <th className="py-3 px-3">Dispute ID</th>
                   <th className="py-3 px-3">Reporter</th>
                   <th className="py-3 px-3">Against</th>
@@ -76,18 +76,18 @@ export default function AdminDisputesPage() {
                   <th className="py-3 px-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)]">
+              <tbody className="divide-y divide-(--border)">
                 {disputes.map((d) => (
-                  <tr key={d.id} className="hover:bg-[var(--bg-secondary)] transition-colors">
-                    <td className="py-3.5 px-3 font-mono font-bold text-[var(--blue)]">{d.id}</td>
-                    <td className="py-3.5 px-3 font-bold text-[var(--text-primary)]">{d.reporter}</td>
-                    <td className="py-3.5 px-3 font-semibold text-[var(--text-secondary)]">
+                  <tr key={d.id} className="hover:bg-(--bg-secondary) transition-colors">
+                    <td className="py-3.5 px-3 font-mono font-bold text-(--blue)">{d.id}</td>
+                    <td className="py-3.5 px-3 font-bold text-(--text-primary)">{d.reporter}</td>
+                    <td className="py-3.5 px-3 font-semibold text-(--text-secondary)">
                       {d.against}
                     </td>
-                    <td className="py-3.5 px-3 text-[var(--text-muted)] truncate max-w-xs">
+                    <td className="py-3.5 px-3 text-(--text-muted) truncate max-w-xs">
                       {d.reason}
                     </td>
-                    <td className="py-3.5 px-3 font-bold text-[var(--text-primary)]">
+                    <td className="py-3.5 px-3 font-bold text-(--text-primary)">
                       ETB {d.amount.toLocaleString()}
                     </td>
                     <td className="py-3.5 px-3">
@@ -104,7 +104,7 @@ export default function AdminDisputesPage() {
                     <td className="py-3.5 px-3 text-right">
                       <button
                         onClick={() => setSelectedDispute(d)}
-                        className="px-3 py-1 rounded-lg bg-[var(--blue)] text-white font-bold text-[11px]"
+                        className="px-3 py-1 rounded-lg bg-(--blue) text-white font-bold text-[11px]"
                       >
                         Arbitrate →
                       </button>
@@ -130,27 +130,27 @@ export default function AdminDisputesPage() {
               <p>{selectedDispute.reason}</p>
             </div>
 
-            <div className="space-y-2 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)]">
+            <div className="space-y-2 p-4 rounded-xl bg-(--bg-secondary) border border-(--border)">
               <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Disputed Amount:</span>
-                <span className="font-bold text-[var(--blue)]">
+                <span className="text-(--text-muted)">Disputed Amount:</span>
+                <span className="font-bold text-(--blue)">
                   ETB {selectedDispute.amount.toLocaleString()}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Filer:</span>
+                <span className="text-(--text-muted)">Filer:</span>
                 <span className="font-bold">{selectedDispute.reporter}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[var(--text-muted)]">Target:</span>
+                <span className="text-(--text-muted)">Target:</span>
                 <span className="font-bold">{selectedDispute.against}</span>
               </div>
             </div>
 
-            <div className="flex gap-3 pt-4 border-t border-[var(--border)]">
+            <div className="flex gap-3 pt-4 border-t border-(--border)">
               <button
                 onClick={() => handleResolve(selectedDispute.id)}
-                className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-all btn-interactive flex items-center justify-center gap-1"
+                className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors duration-150 btn-interactive flex items-center justify-center gap-1"
               >
                 <HugeIcon name="check" size={16} />
                 <span>Resolve & Release Funds</span>
