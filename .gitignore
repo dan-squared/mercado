@@ -2,7 +2,10 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
+# temp scaffolding dirs
+/temp-app
 .pnp.*
 .yarn/*
 !.yarn/patches
