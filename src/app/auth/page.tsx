@@ -3,19 +3,18 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Role } from '@/lib/mock-data';
-import { HugeIcon } from '@/components/ui/huge-icon';
 
 export default function AuthPage() {
   const [role, setRole] = useState<Role>('business');
-  const [phone, setPhone] = useState('911234567');
+  const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!phone) return;
     setIsSubmitting(true);
     setTimeout(() => {
-      // Pass role & phone via localStorage/session for demo flow
       if (typeof window !== 'undefined') {
         localStorage.setItem('mercado_user_role', role);
         localStorage.setItem('mercado_user_phone', `+251 ${phone}`);
@@ -25,108 +24,246 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg)] text-[var(--text-primary)]">
-      <div className="w-full max-w-md space-y-6">
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--bg)',
+        padding: 20,
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 420,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 28,
+        }}
+      >
         {/* Brand Header */}
-        <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-[var(--blue)] text-white font-black text-2xl flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: 14,
+              background: 'var(--blue)',
+              color: '#fff',
+              fontFamily: 'var(--font-fraunces)',
+              fontSize: 28,
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto',
+              boxShadow: '0 8px 20px -6px rgba(47,95,224,0.4)',
+            }}
+          >
             M
           </div>
-          <h1 className="text-2xl font-black tracking-tight">Welcome to Mercado</h1>
-          <p className="text-xs text-[var(--text-muted)] max-w-xs mx-auto">
-            Ethiopia&apos;s verified performance creator ad marketplace
-          </p>
+          <div>
+            <h1
+              style={{
+                fontFamily: 'var(--font-fraunces)',
+                fontSize: 28,
+                fontWeight: 700,
+                color: 'var(--text-dark)',
+                margin: '0 0 6px',
+                letterSpacing: '-0.025em',
+              }}
+            >
+              Welcome to Mercado
+            </h1>
+            <p style={{ fontSize: 13.5, color: 'var(--text-muted)', margin: 0, lineHeight: 1.4 }}>
+              Ethiopia’s verified performance creator marketplace
+            </p>
+          </div>
         </div>
 
         {/* Auth Card */}
-        <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xl space-y-6">
-          {/* Segmented Role Switcher — [ Business ] [ Creator ] */}
-          <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: 20,
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-md)',
+            padding: '28px 24px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 24,
+          }}
+        >
+          {/* Segmented Role Switcher */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <label
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
               I want to use Mercado as:
             </label>
-            <div className="grid grid-cols-2 p-1 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] relative">
-              <button
-                type="button"
-                onClick={() => setRole('business')}
-                className={`py-2 text-xs font-bold rounded-lg transition-all duration-180 flex items-center justify-center gap-2 ${
-                  role === 'business'
-                    ? 'bg-[var(--surface)] text-[var(--blue)] shadow-sm'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <HugeIcon name="building" size={16} />
-                <span>Business / Advertiser</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setRole('creator')}
-                className={`py-2 text-xs font-bold rounded-lg transition-all duration-180 flex items-center justify-center gap-2 ${
-                  role === 'creator'
-                    ? 'bg-[var(--surface)] text-[var(--blue)] shadow-sm'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <HugeIcon name="sparkles" size={16} />
-                <span>Creator / Publisher</span>
-              </button>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                padding: 4,
+                borderRadius: 12,
+                background: '#f0f0ee',
+                border: '1px solid var(--border)',
+              }}
+            >
+              {(['business', 'creator'] as const).map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  onClick={() => setRole(r)}
+                  style={{
+                    padding: '9px 0',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    borderRadius: 9,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: role === r ? '#fff' : 'transparent',
+                    color: role === r ? 'var(--blue)' : 'var(--text-muted)',
+                    boxShadow: role === r ? 'var(--shadow-xs)' : 'none',
+                    transition: 'background-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease)',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {r === 'business' ? 'Business' : 'Creator'}
+                </button>
+              ))}
             </div>
-            <p className="text-[11px] text-[var(--text-muted)] text-center">
+            <p style={{ fontSize: 12.5, color: 'var(--text-muted)', margin: 0, textAlign: 'center', lineHeight: 1.4 }}>
               {role === 'business'
-                ? '💼 Post campaigns with escrow protection and reach real audiences.'
-                : '🎨 Claim campaigns, submit proof, and get weekly mobile money payouts.'}
+                ? 'Launch campaigns with escrow protection and reach verified local audiences.'
+                : 'Browse campaigns, submit proof, and get weekly mobile money payouts.'}
             </p>
           </div>
 
+          <div style={{ height: 1, background: 'var(--border)' }} />
+
           {/* Form */}
-          <form onSubmit={handleSendOtp} className="space-y-4">
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-[var(--text-secondary)]">
+          <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-dark)' }}>
                 Mobile Money Phone Number
               </label>
-              <div className="flex rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] focus-within:border-[var(--blue)] overflow-hidden transition-all">
-                <span className="px-3.5 py-2.5 bg-[var(--surface)] border-r border-[var(--border)] text-xs font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  borderRadius: 12,
+                  border: '1px solid var(--border)',
+                  background: '#f9f9f8',
+                  overflow: 'hidden',
+                  transition: 'border-color var(--dur-fast) var(--ease-out)',
+                }}
+                className="input-group"
+              >
+                <div
+                  style={{
+                    padding: '12px 14px',
+                    background: '#f3f3f2',
+                    borderRight: '1px solid var(--border)',
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: 'var(--text-dark)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}
+                >
                   🇪🇹 +251
-                </span>
+                </div>
                 <input
                   type="tel"
                   required
                   placeholder="91 234 5678"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 px-3 py-2.5 text-sm bg-transparent outline-none text-[var(--text-primary)] font-semibold placeholder-[var(--text-placeholder)]"
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 9))}
+                  style={{
+                    flex: 1,
+                    padding: '12px 14px',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--text-dark)',
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                  }}
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              disabled={isSubmitting || !phone}
-              className="w-full py-3 rounded-xl bg-[var(--blue)] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-[var(--blue-dark)] transition-all btn-interactive flex items-center justify-center gap-2"
+              disabled={isSubmitting || phone.length < 9}
+              style={{
+                width: '100%',
+                padding: '13px',
+                borderRadius: 12,
+                background: (isSubmitting || phone.length < 9) ? '#a0a4ab' : 'var(--blue)',
+                color: '#fff',
+                fontSize: 13.5,
+                fontWeight: 700,
+                border: 'none',
+                cursor: (isSubmitting || phone.length < 9) ? 'not-allowed' : 'pointer',
+                boxShadow: (isSubmitting || phone.length < 9) ? 'none' : '0 2px 4px rgba(47,95,224,0.1), 0 8px 16px -6px rgba(47,95,224,0.4)',
+                transition: 'background-color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+              }}
+              className={(isSubmitting || phone.length < 9) ? '' : 'btn-interactive'}
             >
-              {isSubmitting ? (
-                <span>Sending OTP...</span>
-              ) : (
-                <>
-                  <span>Continue with Phone</span>
-                  <HugeIcon name="arrow-right" size={16} />
-                </>
+              {isSubmitting ? 'Sending OTP...' : 'Continue with Phone'}
+              {!isSubmitting && (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
               )}
             </button>
           </form>
 
           {/* Admin link */}
-          <div className="pt-2 text-center border-t border-[var(--border)]">
+          <div style={{ textAlign: 'center', paddingTop: 16 }}>
             <a
               href="/admin"
-              className="text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--blue)] transition-colors"
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                textDecoration: 'none',
+                transition: 'color var(--dur-base) var(--ease)',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.color = 'var(--blue)')}
+              onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
             >
               Platform Owner / Admin Login →
             </a>
           </div>
         </div>
       </div>
+      <style>{`
+        .input-group:focus-within {
+          border-color: var(--blue) !important;
+          box-shadow: 0 0 0 3px rgba(47,95,224,0.15);
+        }
+        input::placeholder {
+          color: #b5b8be;
+          font-weight: 500;
+        }
+      `}</style>
     </div>
   );
 }
